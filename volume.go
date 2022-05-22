@@ -22,6 +22,21 @@ func (c *Client) Volume() (float32, error) {
 	return 0, fmt.Errorf("PulseAudio error: couldn't query volume - sink %s not found", s.DefaultSink)
 }
 
+func (c *Client) SourceVolume() (float32, error) {
+	s, err := c.ServerInfo()
+	if err != nil {
+		return 0, err
+	}
+	sources, err := c.Sources()
+	for _, source := range sources {
+		if source.Name != s.DefaultSource {
+			continue
+		}
+		return float32(source.Cvolume[0]) / pulseVolumeMax, nil
+	}
+	return 0, fmt.Errorf("PulseAudio error: couldn't query volume - source %s not found", s.DefaultSource)
+}
+
 // SetVolume changes the current volume to a specified value from 0 to 1 (or more than 1 - if volume should be boosted).
 func (c *Client) SetVolume(volume float32) error {
 	s, err := c.ServerInfo()
