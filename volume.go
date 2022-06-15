@@ -55,12 +55,8 @@ func (c *Client) setSinkVolume(sinkName string, cvolume cvolume) error {
 	return err
 }
 
-func (c *Client) SetSourceVolume(volume float32) error {
-	s, err := c.ServerInfo()
-	if err != nil {
-		return err
-	}
-	return c.setSourceVolume(s.DefaultSource, cvolume{uint32(volume * 0xffff)})
+func (c *Client) SetSourceVolume(sourceName string, volume float32) error {
+	return c.setSourceVolume(sourceName, cvolume{uint32(volume * 0xffff)})
 }
 
 func (c *Client) setSourceVolume(sourceName string, cvolume cvolume) error {
