@@ -148,3 +148,149 @@ const (
 
 	commandMax
 )
+
+// Avoid unused errors
+func init() {
+	_ = commandError
+	_ = commandTimeout
+	_ = commandReply // 2
+
+	/* CLIENT->SERVER */
+	_ = commandCreatePlaybackStream // 3
+	_ = commandDeletePlaybackStream
+	_ = commandCreateRecordStream
+	_ = commandDeleteRecordStream
+	_ = commandExit
+	_ = commandAuth // 8
+	_ = commandSetClientName
+	_ = commandLookupSink
+	_ = commandLookupSource
+	_ = commandDrainPlaybackStream
+	_ = commandStat
+	_ = commandGetPlaybackLatency
+	_ = commandCreateUploadStream
+	_ = commandDeleteUploadStream
+	_ = commandFinishUploadStream
+	_ = commandPlaySample
+	_ = commandRemoveSample // 19
+
+	_ = commandGetServerInfo
+	_ = commandGetSinkInfo
+	_ = commandGetSinkInfoList
+	_ = commandGetSourceInfo
+	_ = commandGetSourceInfoList
+	_ = commandGetModuleInfo
+	_ = commandGetModuleInfoList
+	_ = commandGetClientInfo
+	_ = commandGetClientInfoList
+	_ = commandGetSinkInputInfo
+	_ = commandGetSinkInputInfoList
+	_ = commandGetSourceOutputInfo
+	_ = commandGetSourceOutputInfoList
+	_ = commandGetSampleInfo
+	_ = commandGetSampleInfoList
+	_ = commandSubscribe
+
+	_ = commandSetSinkVolume
+	_ = commandSetSinkInputVolume
+	_ = commandSetSourceVolume
+
+	_ = commandSetSinkMute
+	_ = commandSetSourceMute // 40
+
+	_ = commandCorkPlaybackStream
+	_ = commandFlushPlaybackStream
+	_ = commandTriggerPlaybackStream // 43
+
+	_ = commandSetDefaultSink
+	_ = commandSetDefaultSource // 45
+
+	_ = commandSetPlaybackStreamName
+	_ = commandSetRecordStreamName // 47
+
+	_ = commandKillClient
+	_ = commandKillSinkInput
+	_ = commandKillSourceOutput // 50
+
+	_ = commandLoadModule
+	_ = commandUnloadModule // 52
+
+	_ = commandAddAutoloadObsolete
+	_ = commandRemoveAutoloadObsolete
+	_ = commandGetAutoloadInfoObsolete
+	_ = commandGetAutoloadInfoListObsolete //56
+
+	_ = commandGetRecordLatency
+	_ = commandCorkRecordStream
+	_ = commandFlushRecordStream
+	_ = commandPrebufPlaybackStream // 60
+
+	/* SERVER->CLIENT */
+	_ = commandRequest // 61
+	_ = commandOverflow
+	_ = commandUnderflow
+	_ = commandPlaybackStreamKilled
+	_ = commandRecordStreamKilled
+	_ = commandSubscribeEvent
+
+	/* A few more client->server _ = commands */
+
+	_ = commandMoveSinkInput
+	_ = commandMoveSourceOutput
+	_ = commandSetSinkInputMute
+	_ = commandSuspendSink
+	_ = commandSuspendSource
+
+	_ = commandSetPlaybackStreamBufferAttr
+	_ = commandSetRecordStreamBufferAttr
+
+	_ = commandUpdatePlaybackStreamSampleRate
+	_ = commandUpdateRecordStreamSampleRate
+
+	/* SERVER->CLIENT */
+	_ = commandPlaybackStreamSuspended
+	_ = commandRecordStreamSuspended
+	_ = commandPlaybackStreamMoved
+	_ = commandRecordStreamMoved
+
+	_ = commandUpdateRecordStreamProplist
+	_ = commandUpdatePlaybackStreamProplist
+	_ = commandUpdateClientProplist
+	_ = commandRemoveRecordStreamProplist
+	_ = commandRemovePlaybackStreamProplist
+	_ = commandRemoveClientProplist
+
+	/* SERVER->CLIENT */
+	_ = commandStarted
+
+	_ = commandExtension
+
+	_ = commandGetCardInfo
+	_ = commandGetCardInfoList
+	_ = commandSetCardProfile
+
+	_ = commandClientEvent
+	_ = commandPlaybackStreamEvent
+	_ = commandRecordStreamEvent
+
+	/* SERVER->CLIENT */
+	_ = commandPlaybackBufferAttrChanged
+	_ = commandRecordBufferAttrChanged
+
+	_ = commandSetSinkPort
+	_ = commandSetSourcePort
+
+	_ = commandSetSourceOutputVolume
+	_ = commandSetSourceOutputMute
+
+	_ = commandSetPortLatencyOffset
+
+	/* BOTH DIRECTIONS */
+	_ = commandEnableSrbchannel
+	_ = commandDisableSrbchannel
+
+	/* BOTH DIRECTIONS */
+	_ = commandRegisterMemfdShmid
+
+	_ = commandMax
+}

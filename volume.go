@@ -13,13 +13,17 @@ func (c *Client) Volume() (float32, error) {
 		return 0, err
 	}
 	sinks, err := c.Sinks()
+	if err != nil {
+		return 0, err
+	}
+
 	for _, sink := range sinks {
 		if sink.Name != s.DefaultSink {
 			continue
 		}
 		return float32(sink.Cvolume[0]) / pulseVolumeMax, nil
 	}
-	return 0, fmt.Errorf("PulseAudio error: couldn't query volume - sink %s not found", s.DefaultSink)
+	return 0, fmt.Errorf("pulseaudio error: couldn't query volume - sink %s not found", s.DefaultSink)
 }
 
 func (c *Client) SourceVolume() (float32, error) {
@@ -28,6 +32,10 @@ func (c *Client) SourceVolume() (float32, error) {
 		return 0, err
 	}
 	sources, err := c.Sources()
+	if err != nil {
+		return 0, err
+	}
+
 	for _, source := range sources {
 		if source.Name != s.DefaultSource {
 			continue

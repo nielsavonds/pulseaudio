@@ -15,6 +15,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net"
 	"os"
 	"os/user"
@@ -104,7 +105,7 @@ func (c *Client) processPackets() {
 			}
 			n := binary.BigEndian.Uint32(b.Bytes())
 			if n > frameSizeMaxAllow {
-				err = fmt.Errorf("Response size %d is too long (only %d allowed)", n, frameSizeMaxAllow)
+				log.Printf("Response size %d is too long (only %d allowed)", n, frameSizeMaxAllow)
 				break
 			}
 			b.Grow(int(n) + 20)
@@ -232,7 +233,7 @@ func (c *Client) request(cmd command, args ...interface{}) (*bytes.Buffer, error
 		return nil, err
 	}
 	if b.Len() > frameSizeMaxAllow {
-		return nil, fmt.Errorf("Request size %d is too long (only %d allowed)", b.Len(), frameSizeMaxAllow)
+		return nil, fmt.Errorf("request size %d is too long (only %d allowed)", b.Len(), frameSizeMaxAllow)
 	}
 	responseChan := make(chan packetResponse)
 
@@ -273,6 +274,7 @@ func (c *Client) auth() error {
 		return fmt.Errorf("pulse audio client cookie has incorrect length %d: Expected %d (path %#v)",
 			len(cookie), cookieLength, cookiePath)
 	}
+	log.Printf("Cookie: version: %v, %v", version, cookie)
 	b, err := c.request(commandAuth,
 		uint32Tag, uint32(version),
 		arbitraryTag, uint32(len(cookie)), cookie)
@@ -361,7 +363,7 @@ func RuntimePath(fn string) (string, error) {
 		return filepath.Join(defaultxdg, "/pulse/", fn), nil
 	}
 
-	return "", fmt.Errorf("No valid directory for Pulse RuntimePath found")
+	return "", fmt.Errorf("no valid directory for Pulse RuntimePath found")
 }
 
 func cookiePath() (string, error) {
@@ -388,5 +390,5 @@ func cookiePath() (string, error) {
 		return p, nil
 	}
 
-	return "", fmt.Errorf("No valid path for Pulse cookie found")
+	return "", fmt.Errorf("no valid path for Pulse cookie found")
 }
